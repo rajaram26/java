@@ -1,0 +1,92 @@
+import java.util.*;
+public class MyClass {
+    public static void main(String args[]) {
+        Scanner r=new Scanner(System.in);
+        String s=r.nextLine();
+        int count=0;
+        Stack<String> sd=new Stack<String>();
+        LinkedHashMap<String,Integer> hm=new LinkedHashMap<String,Integer>();
+        for(int i=0;i<s.length();i++)
+        {
+            char c=s.charAt(i);
+            String a=" ";
+            // a=String.valueOf(c);
+            if(Character.isUpperCase(c))
+            {
+                a=""+c;
+                String num="";
+                for(int j=i+1;j<s.length();j++)
+                {
+                    if(Character.isLowerCase(s.charAt(j)))
+                    {
+                        a=a+s.charAt(j);
+                    }else if(Character.isDigit(s.charAt(j))){
+                        num=num+s.charAt(j);
+                    }else{
+                        i=j-1;
+                        break;
+                    }
+                }
+                if(num.length()==0){
+                    num=num+'0';
+                }
+                 int flag=0;
+                Iterator<Map.Entry<String,Integer>> itr=hm.entrySet().iterator();
+                while(itr.hasNext()){
+                    Map.Entry<String,Integer> ent=itr.next();
+                    if(ent.getKey().equals(a))
+                    {
+                        flag=1;
+                        if(Integer.parseInt(num)==0){
+                            hm.replace(ent.getKey(),(ent.getValue()+1));
+                        }else{
+                            hm.replace(ent.getKey(),(ent.getValue()+Integer.parseInt(num)));
+                        }
+                    }
+                }
+                if(flag==0){
+                    
+                    hm.put(a,Integer.parseInt(num));
+                }
+            }else if(c=='('){
+                i++;
+                while(s.charAt(i)!=')')
+                {
+                     String num="";
+                    if(Character.isUpperCase(s.charAt(i)))
+                    {
+                        a=""+s.charAt(i);
+                    }   
+                   sd.push(a);
+                   i++;
+                }
+                // System.out.println(sd);
+                int flag=0;
+                int k=Integer.parseInt(""+s.charAt(i+1));
+                while(!sd.isEmpty())
+                {
+                    String m=sd.pop();
+                    Iterator<Map.Entry<String,Integer>> itr=hm.entrySet().iterator();
+                    while(itr.hasNext()){
+                        Map.Entry<String,Integer> ent=itr.next();
+                        if(ent.getKey().equals(m))
+                        {
+                            flag=1;
+                            hm.replace(ent.getKey(),(ent.getValue()+k));
+                        }
+                    }
+                    if(flag==0){
+                        hm.put(m,k);
+                    }
+                    count++;
+                }
+                i=i+1;
+            }
+            
+        }
+        TreeMap<String,Integer> tm=new TreeMap<String,Integer>();
+        tm.putAll(hm);
+        System.out.println(tm);
+        // System.out.println(count);
+    }
+}
