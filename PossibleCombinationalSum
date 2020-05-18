@@ -1,0 +1,43 @@
+import java.util.*;
+public class MyClass {
+    
+    
+    static void combination(ArrayList<Integer> num,int target,ArrayList<Integer> temp)
+    {
+        int sum=0;
+        for(int i: temp)
+        {
+           sum=sum+i; 
+        }
+        if(sum==target)
+        {
+            System.out.println(Arrays.toString(temp.toArray()));
+        }
+        if(sum>=target)
+        {
+            return;
+        }
+        for(int i=0;i<num.size();i++)
+        {
+            int n=num.get(i);
+            ArrayList<Integer> rem=new ArrayList<Integer>();
+            for(int j=i+1;j<num.size();j++)
+            {
+                rem.add(num.get(j));
+            }
+            ArrayList<Integer> temp2=new ArrayList<Integer>(temp);
+            temp2.add(n);
+            combination(rem,target,temp2);
+        }
+    }
+    
+    static void findCom(ArrayList<Integer> num,int target)
+    {
+        combination(num,target,new ArrayList<Integer>());
+    }
+    public static void main(String args[]) {
+        Integer n[]={1,2,3,4,5,6};
+        int target=10;
+        findCom(new ArrayList<Integer>(Arrays.asList(n)),target);
+    }
+}
