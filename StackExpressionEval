@@ -1,0 +1,69 @@
+import java.util.*;
+public class MyClass {
+    public static int prece(char c){
+        switch(c){
+            case '+':
+            case '-':
+                return 1;
+            case '*':
+            case '/':
+                return 2;
+        }
+        return -1;
+    }
+    
+    public static int doOperation(int b,int a,char x){
+        switch(x){
+            case '+':
+                return a+b;
+            case '-':
+                return a-b;
+            case '*':
+                return a*b;
+            case '/':
+                return a/b;
+        }
+        return 0;
+    }
+    
+    public static void main(String args[]) {
+        Scanner r=new Scanner(System.in);
+        String s=r.nextLine();
+        Stack<Integer> val=new Stack<Integer>();
+        Stack<Character> op=new Stack<Character>();
+        char tok[]=s.toCharArray();
+        for(int i=0;i<tok.length;i++){
+           
+            if(tok[i]==' '){
+                continue;
+            }else if(tok[i]=='('){
+                op.push(tok[i]);
+            }else if(tok[i]==')'){
+                while(!op.isEmpty() && op.peek()!='(')
+                {
+                    val.push( doOperation(val.pop(),val.pop(),op.pop()) );
+                }
+                op.pop();
+            }else if(tok[i]>='0' && tok[i]<='9'){
+                StringBuffer str=new StringBuffer();
+                while(i<tok.length && tok[i]>='0' && tok[i]<='9'){
+                    str.append(tok[i]);
+                    i++;
+                }
+                val.push(Integer.parseInt(str.toString()));
+            }else if(tok[i]=='*' || tok[i]=='/' || tok[i]=='-' || tok[i]=='+' ){
+                while(!op.isEmpty() && prece(tok[i]) <= prece(op.peek()))
+                {
+                    val.push( doOperation(val.pop(),val.pop(),op.pop()) );
+                }
+                op.push(tok[i]);
+            }
+            
+        }
+        while(!op.isEmpty()){
+             val.push( doOperation(val.pop(),val.pop(),op.pop()) );
+        }
+        System.out.println(val.pop());
+        // System.out.println(op);
+    }
+}
