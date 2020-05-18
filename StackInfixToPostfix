@@ -1,0 +1,58 @@
+import java.util.*;
+public class MyClass {
+    
+    public static int pre(char c){
+        switch(c){
+            case '+':
+            case '-':
+                return 1;
+            case '*':
+            case '/':
+                return 2;
+            case '^':
+                return 3;
+        }
+        return -1;
+    }
+    
+    public static String intopost(String k){
+        Stack<Character> sd=new Stack<Character>();
+        String temp="";
+        for(int i=0;i<k.length();i++)
+        {
+            char x=k.charAt(i);
+            if(Character.isLetterOrDigit(x)){
+                temp=temp+x;
+            }else if(x=='('){
+                sd.push(x);
+            }else if(x==')'){
+                while(!sd.isEmpty() && sd.peek()!='(')
+                {
+                    temp=temp+sd.pop();
+                }
+                // if (!sd.isEmpty() && sd.peek() != '(') 
+                //     return "Invalid Expression"; // invalid expression                 
+                // else
+                    sd.pop();
+            }else{
+                while(!sd.isEmpty() && pre(x)<=pre(sd.peek())){
+                    temp=temp+sd.pop();
+                }
+                sd.push(x);
+            }
+        }
+        while(!sd.isEmpty()){
+            if(sd.peek()!='(')
+                temp=temp+sd.pop();
+            else
+                sd.pop();
+        }
+        return temp;
+    }
+    
+    public static void main(String args[]) {
+        Scanner r=new Scanner(System.in);
+        String s=r.nextLine();
+        System.out.println(intopost(s));
+    }
+}
