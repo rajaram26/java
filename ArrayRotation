@@ -1,0 +1,58 @@
+import java.util.*;
+public class MyClass {
+    public static void main(String args[]) {
+      Scanner r=new Scanner(System.in);
+      int row=r.nextInt();
+      int col=r.nextInt();
+      int a[][]=new int[row][col];
+      for(int i=0;i<row;i++){
+          for(int j=0;j<col;j++){
+              a[i][j]=r.nextInt();
+          }
+      }
+      int m=row;
+      int n=col;
+      int rr=0,cc=0;
+      int prev,curr;
+      while(rr<m && cc<n){
+          if(rr+1==m || cc+1==n){
+              break;
+          }
+          prev=a[rr+1][cc];
+          for(int i=cc;i<n;i++){
+              curr=a[rr][i];
+              a[rr][i]=prev;
+              prev=curr;
+          }
+          rr++;
+          for(int i=rr;i<m;i++){
+              curr=a[i][n-1];
+              a[i][n-1]=prev;
+              prev=curr;
+          }
+          n--;
+          if(rr<m){
+              for(int i=n-1;i>=col;i--){
+                  curr=a[m-1][i];
+                  a[m-1][i]=prev;
+                  prev=curr;
+              }
+          }
+          m--;
+          if(cc<n){
+               for(int i=m-1;i>=row;i--){
+                  curr=a[i][col];
+                  a[i][col]=prev;
+                  prev=curr;
+              }
+          }
+          cc++;
+      }
+      for(int i=0;i<row;i++){
+          for(int j=0;j<col;j++){
+              System.out.print(a[i][j]+" ");
+          }
+          System.out.println();
+      }
+    }
+}
