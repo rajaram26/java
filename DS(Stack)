@@ -1,0 +1,66 @@
+import java.util.*;
+public class Raja{
+    
+    public static ArrayList<Integer> ar;
+    
+    public Raja(){
+        ar = new ArrayList<Integer>();
+    }
+    
+    public void push(int x){
+        Integer temp = x;
+        ar.add(temp);
+        
+    }
+    public void peek(){
+        if(ar.size() > 0)
+            System.out.println("Peek Element : " + ar.get(ar.size()-1));
+        else
+            System.out.println("Empty Stack Exception");
+            
+            
+    }
+    public void pop(){
+        if(ar.size() > 0){
+            System.out.println("Element popped : " + ar.get(ar.size()-1));
+            ar.remove(ar.size()-1);
+        }else {
+            System.out.println("Empty Stack Exception");
+        }
+    }
+    public boolean isEmpty(){
+        if(ar.size() == 0)
+            return true;
+        else
+            return false;
+    }
+    
+    public void display(){
+        System.out.println("Stack elements are ..");
+       ListIterator<Integer> itr = ar.listIterator(ar.size());
+       
+       while(itr.hasPrevious()){
+            Integer t   = itr.previous();
+           System.out.println(t);
+       }
+        
+    }
+    public static void main(String args[]){
+    
+    Raja r = new Raja();
+    
+        r.push(32);
+        r.push(34);
+        r.push(36);
+        r.display();  
+        r.pop();
+        r.display();
+    
+        r.peek();
+    
+        r.display();
+        r.pop();
+        r.pop();
+        System.out.println(r.isEmpty());
+    }
+}
