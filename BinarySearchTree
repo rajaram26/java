@@ -1,0 +1,86 @@
+class Node{
+    int data;
+    Node left;
+    Node rigth;
+    
+    public Node(int data){
+        this.data=data;
+        this.left=null;
+        this.rigth=null;
+    }
+}
+
+public class BST{
+    
+   public static Node root=null;
+   
+   
+    public static void add(int s){
+        Node n=new Node(s);
+        Node temp=root;
+        Node prev=root;
+        if(root==null)
+        {
+            root=n;
+        // System.out.println(root.data);
+            return;
+        }
+        while(temp!=null)
+        {
+            if(s<temp.data)
+            {
+                prev=temp;
+                temp=temp.left;
+            }else if(s>temp.data){
+                prev=temp;
+                temp=temp.rigth;
+            }
+        }
+        if(s>prev.data)
+        {
+            prev.rigth=n;
+        }else{
+            prev.left=n;
+        }
+    }
+     public void Inorder(Node temp)
+    {
+        if(temp == null) return;
+        Inorder(temp.left);
+        System.out.print(temp.data+" ");
+        Inorder(temp.rigth);
+        
+    }
+    public void Preorder(Node temp)
+    {
+        if(temp == null) return;
+        System.out.print(temp.data+" ");
+        Preorder(temp.left);
+        Preorder(temp.rigth);
+        
+    }
+    public void Postorder(Node temp)
+    {
+        if(temp == null) return;
+        Postorder(temp.left);
+        Postorder(temp.rigth);
+        System.out.print(temp.data+" ");
+    }
+
+    public static void main(String args[]){
+      BST d=new BST();
+      d.add(4);
+      d.add(12);
+      d.add(3);
+      d.add(65);
+      d.add(23);
+      
+      d.Inorder(root);
+      System.out.println();
+      d.Preorder(root);
+      System.out.println();
+      d.Postorder(root);
+      
+    }
+}
+    
