@@ -1,0 +1,77 @@
+class Linkedlist{
+    Node head=null;
+    Node tail=null;
+    
+    public void add(int n){
+        if(head==null){
+            head=new Node(n);
+            tail=head;
+        }else{
+            tail=new Node(n);
+            Node temp=head;
+            while(temp.next!=null){
+                temp=temp.next;
+            }
+            temp.next=tail;
+        }
+    }
+    
+    public void display(){
+        Node n=head;
+        while(n!=null){
+            System.out.print(n.data+" ");
+            n=n.next;
+        }
+        System.out.println();
+    }
+    
+    public void insert(int t,int p){
+        Node temp1=head;
+        Node temp2=head;
+        for(int i=1;i<p;i++){
+            temp1=temp2;
+            temp2=temp2.next;
+        }
+        temp1.next=new Node(t);
+        temp1.next.next=temp2;
+    }
+    
+    public void delete(int p){
+        Node temp1=head;
+        Node temp2=head;
+        for(int i=1;i<p;i++){
+            temp1=temp2;
+            temp2=temp2.next;
+        }
+        if(temp2==head){
+            head=head.next;
+        }
+        else
+            temp1.next=temp2.next;
+    }
+}
+
+class Node{
+    int data;
+    Node next;
+    
+    public Node(int d){
+        data=d;
+        next=null;
+    }
+}
+
+public class Main{
+    public static void main(String args[]){
+        Linkedlist ll=new Linkedlist();
+        ll.add(23);
+        ll.add(13);
+        ll.add(2);
+        ll.add(53);
+        ll.insert(70,3);
+        ll.display();
+        // ll.delete(4);
+        // ll.delete(1);
+        // ll.display();
+    }
+}
