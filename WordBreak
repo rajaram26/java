@@ -1,0 +1,45 @@
+import java.util.*;
+public class test{
+    
+    public static void wordBreakUtil(String word,int len,String res)
+    {
+        for(int i=1;i<=len;i++)
+        {
+            String prefix=word.substring(0,i);
+            if(FindWord(prefix)==true)
+            {
+                if(i==len)
+                {
+                    res+=prefix;
+                    System.out.println(res);
+                    return;
+                }
+                wordBreakUtil(word.substring(i,len),len-i,res+prefix+" ");
+            }
+        }
+    }
+    
+    public static void wordBreak(String w,int l)
+    {
+        wordBreakUtil(w,l,"");
+    }
+    
+    public static boolean FindWord(String find)
+    {
+        String dic[] = { "mobile", "samsung", "sam", "sung", "man","mango", "icecream", "and", "go", "i", "love", "ice", "cream" };
+        for(int i=0;i<dic.length;i++)
+        {
+            if(dic[i].compareTo(find)==0)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public static void main(String args[])
+    {
+        String word="iloveicecreamandmango";
+        wordBreak(word,word.length());
+    }
+}
