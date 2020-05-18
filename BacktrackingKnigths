@@ -1,0 +1,72 @@
+import java.util.Scanner;
+public class Main
+{
+    static int n, minCount=9999;
+    
+
+    public static boolean FindMinMoves(int x, int y, int destX, int destY, int[] pathX, int[] pathY, int count)
+    {
+        if((x == destX) &&(y == destY) && count < minCount)
+        {
+            //for(int i=0;i<count;++i)
+              //System.out.println(pathX[i]+" "+pathY[i]);
+            //System.out.println(x+" "+y);
+            //System.out.println("Count of moves = "+count);
+            minCount = count;
+            return true;
+        }
+        
+        if(x >= 0 && x < n && y >=0 && y <n && count < minCount)
+        {
+            for(int i=0;i<count;++i)
+            {
+                if(pathX[i] == x && pathY[i] == y) /* Path has already been visited */
+                  return false;
+            }
+            pathX[count] = x;
+            pathY[count] = y;
+            //System.out.println("::"+x+" "+y+"::");
+            FindMinMoves(x+2,y+1,destX, destY, pathX, pathY, count+1);
+            FindMinMoves(x+2,y-1,destX, destY, pathX, pathY, count+1);
+            FindMinMoves(x+1,y+2,destX, destY, pathX, pathY, count+1);
+            FindMinMoves(x+1,y-2,destX, destY, pathX, pathY, count+1);
+
+            FindMinMoves(x-2,y+1,destX, destY, pathX, pathY, count+1);
+            FindMinMoves(x-2,y-1,destX, destY, pathX, pathY, count+1);
+            FindMinMoves(x-1,y+2,destX, destY, pathX, pathY, count+1);
+            FindMinMoves(x-1,y-2,destX, destY, pathX, pathY, count+1);
+            //System.out.println("--"+x+" "+y+"::");
+            pathX[count] = -1;
+            pathY[count] = -1;
+        }
+        return false;
+    }
+	public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        n = sc.nextInt();
+        
+		int[][] a = new int[n][n];
+		int[] pathX = new int[500];
+		int[] pathY = new int[500];
+		
+		for(int i=0;i<n;++i)
+		  for(int j=0;j<n;++j)
+		    a[i][j] = 0;
+		
+		for(int i=0;i<n;++i) pathX[i] = pathY[i] = -1;
+		
+		int startX = sc.nextInt();
+		int startY = sc.nextInt();
+		int destX = sc.nextInt();
+		int destY = sc.nextInt();
+		FindMinMoves(startX, startY, destX, destY, pathX, pathY,0);
+		if(minCount < 9999)
+		{
+		    System.out.println("Minimum number of moves: "+minCount);
+		}
+		else
+		{
+		    System.out.println("No Solution Found!");
+		}
+	}
+}
