@@ -1,0 +1,49 @@
+public class test{
+    public static void main(String args[]){
+        String s="19875";
+        int j=s.length()-1;
+        int flag=0;
+        int count=0;
+        for(int i=0;i<s.length();i++){
+            if(s.charAt(i)==s.charAt(j))
+            {
+                count++;
+                j--;
+            }
+        }
+        if(count==j)
+        {
+            System.out.println("Given is palindrome already");
+        }else{
+            while(flag==0){
+                int count1=0;
+                int sum=0;
+                String ss=s;
+                String str="";
+                for(int i=ss.length()-1;i>=0;i--){
+                    str=str+ss.charAt(i);
+                }
+                int t=Integer.parseInt(ss);
+                int d=Integer.parseInt(str);
+                sum=t+d;
+                String s2=String.valueOf(sum);
+                int ln=s2.length();
+                for(int i=0;i<s2.length();i++){
+                    if(s2.charAt(i)==s2.charAt(ln-1))
+                    {
+                        count1++;
+                        ln--;
+                    }
+                }
+                if(count1==s2.length()){
+                    System.out.println("Palindorme is here");
+                    System.out.println(t+"+"+d+"="+sum);
+                    flag=1;
+                }else{
+                    System.out.println(t+"+"+d+"="+sum);
+                    s=s2;
+                }
+            }
+        }
+    }
+}
