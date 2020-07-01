@@ -1,0 +1,53 @@
+import java.util.*;
+public class test{
+    public static boolean isAnagram(String s1,String s2)
+    {
+        for(int i=0;i<s1.length();i++)
+        {
+            s2=s2.replace(s1.charAt(i)+"","");
+        }
+        if(s2.length()==0)
+            return true;
+        else
+            return false;
+    }
+    public static void FunWith(ArrayList<String> al)
+    {
+         ArrayList<String> result=new ArrayList<String>();
+        for(int i=0;i<al.size();i++)
+        {
+            String s=al.get(i);
+            for(int j=0;j<al.size();j++)
+            {
+                if(!s.equals(al.get(j)))
+                {
+                    if(isAnagram(s,al.get(j)))
+                    {
+                        al.set(j,"");
+                    }
+                }
+            }
+        }
+       for(String x : al)
+       {
+           if(x.length()!=0)
+           {
+               result.add(x);
+           }
+       }
+       Collections.sort(result);
+       System.out.println(result);
+    }
+    public static void main(String args[])
+    {
+        ArrayList<String> al=new ArrayList<String>();
+        al.add("poke");
+        al.add("epok");
+        al.add("kepo");
+        al.add("poek");
+        al.add("raja");
+        al.add("opke");
+        al.add("aajr");
+        FunWith(al);
+    }
+}
