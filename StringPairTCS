@@ -1,0 +1,48 @@
+import java.util.*;
+public class MyClass {
+    public static boolean isVowel(char c){
+        if(c=='a' ||c=='e' || c=='i' || c=='o' ||c=='u')
+        {
+            return true;
+        }
+        return false;
+    }
+    public static void main(String args[]) {
+      Scanner r=new Scanner(System.in);
+      int n=r.nextInt();
+      String s[]={"zero","one","two","three","four","five","six","seven","eight","nine"};
+      int a[]=new int[n];
+      int count=0;
+      for(int i=0;i<n;i++)
+      {
+          a[i]=r.nextInt();
+      }
+      Arrays.sort(a);
+      for(int i=0;i<n;i++)
+      {
+          int k=a[i];
+          String m=s[k];
+          for(int j=0;j<m.length();j++)
+          {
+              if(isVowel(m.charAt(j)))
+              {
+                  count++;
+              }
+          }
+      }
+      int c=0;
+      for(int i=0;i<n;i++)
+      {
+          int sum=a[i];
+          for(int j=i+1;j<n;j++)
+          {
+              sum=sum+a[j];
+          }
+          if(sum==count)
+          {
+              c++;
+          }
+      }
+        System.out.println(s[c]);
+      }
+}
